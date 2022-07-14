@@ -1,0 +1,145 @@
+(*Model Inputs*)
+
+L1=44.13*10^-3; (*Proximal phalanx or Metacarpal bone length for thumb in m*)
+L2=28.01*10^-3; (*Middle phalanx or Proximal bone length for thumb in m*)
+L3=26.31*10^-3; (*Distal Phalanx length in m*)
+rho=1.1*10^3; (*Constant density found in the literature in kg/m^3*)
+R1=9.86*10^-3; (*Radius of the proximal digit in m*)
+R2=8.525*10^-3; (*Radius of the middle digit in m*)
+R3=7.82*10^-3; (*Radius of the distal digit in m*)
+m1=Pi*R1^2*L1*rho; (*Mass of the first bone in Kg*)
+m2=Pi*R2^2*L2*rho; (*Mass of the second bone in Kg*)
+m3=Pi*R3^2*L3*rho; (*Mass of the third bone in Kg*)
+
+(*Torsional spring and damper constants
+In the future perhaps a function that scales these parameters with 
+anthropometric data can be implemented*)
+K1=0.03963;
+K2=0.0086;
+K3=0.0019398;
+K4=0.0121;
+b1=0.0011936;
+b2=3.44*10^-4;
+b3=6.18*10^-5;
+b4=1.3*10^-3;
+
+(*Graviational Acceleration in m/s^2*)
+g=9.81;
+
+(* Torsional Spring equilibrium angles, must be given in degrees*)
+th1eq=27*Pi/180;
+th2eq=45*Pi/180;
+th3eq=11*Pi/180;
+phieq=15*Pi/180;
+
+(*Initial Conditions*)
+init={th1[0]==60*Pi/180,th1'[0]==0,th2[0]==45*Pi/180,th2'[0]==0,th3[0]==11*Pi/180,th3'[0]==0,phi[0]==15*Pi/180,phi'[0]==0};
+
+
+(*Moment of inertia matirx as calculated on my 1st year progress report*)
+M1={{m1*(R1^2/8+L1^2/6),0,0},{(m2*L1^2)/2,m2*(R2^2/8+L2^2/6),0},{(m3*L1^2)/2,(m3*L2^2)/2,m3*(R3^2/8+L3^2/6)}};
+MatrixForm[M1];
+
+(*Moment of inertia of the abduction movement*)
+
+Iab=2*{1,1,1} . M1 . {Cos[th1[t]^2],Cos[th2[t]]^2,Cos[th3[t]]^2}+{L1*L2*(m2+2*m3),L1*L3*m3,L2*L3*m3} . {Cos[th1[t]]*Cos[th2[t]],Cos[th1[t]]*Cos[th3[t]],Cos[th2[t]]*Cos[th3[t]]};
+
+
+(*Angular Velocities*)
+An={th1'[t]^2+phi'[t]^2*Cos[th1[t]]^2,th2'[t]^2+phi'[t]^2*Cos[th2[t]]^2,th3'[t]^2+phi'[t]^2*Cos[th3[t]]^2};
+MatrixForm[An];
+K0={1,1,1} . M1 . An;
+MatrixForm[K0];
+
+
+(*Body Interactions*)
+a=th1'[t]*th2'[t]*Cos[th1[t]-th2[t]]+phi'[t]^2*Cos[th1[t]]*Cos[th2[t]];
+b=th1'[t]*th3'[t]*Cos[th1[t]-th3[t]]+phi'[t]^2*Cos[th1[t]]*Cos[th3[t]];
+c=th3'[t]*th2'[t]*Cos[th2[t]-th3[t]]+phi'[t]^2*Cos[th3[t]]*Cos[th2[t]];
+c1=(m2/2+m3)*L1*L2;
+c2=m3*L1*L3/2;
+c3=m3*L2*L3/2;
+
+Ka1=a*c1+b*c2+c*c3;
+
+(*Total Kinetic Energy*)
+Ktotal=K0+Ka1;
+
+(*Torsional Spring Potential Energy*)
+Vspr=K1/2*(th1[t]-th1eq)^2+K2/2*(th2[t]-th2eq)^2+K3/2*(th3[t]-th3eq)^2+K4/2*(phi[t]-phieq)^2;
+
+(*Graviational Potential Energy*)
+Vgrav=m1*g*L1*Sin[th1[t]]/2+m2*g*(L1*Sin[th1[t]]+L2*Sin[th2[t]]/2)+m3*g*(L1*Sin[th1[t]]+L2*Sin[th2[t]]+L3*Sin[th3[t]]/2);
+
+(*Total Potential Energy*)
+Vtotal=Vspr-Vgrav;
+
+(*Lagrangian of the System*)
+L=Ktotal-Vtotal;
+
+(*Euler-Lagrange equations*)
+
+a1=D[D[L,th1'[t]],t]-D[L,th1[t]]+b1*th1'[t];
+a2=D[D[L,th2'[t]],t]-D[L,th2[t]]+b2*th2'[t];
+a3=D[D[L,th3'[t]],t]-D[L,th3[t]]+b3*th3'[t];
+aa=D[D[L,phi'[t]],t]-D[L,phi[t]]+b4*phi'[t];
+
+
+(* Input Torques *)
+
+t1=15*K1*Pi/180*Sin[4*Pi*t];
+t2=th2eq*K2*Pi/180;
+t3=th3eq*K3*Pi/180;
+t4=5*K4*Pi/180*Cos[4*Pi*t];
+
+(*Equations of Motion*)
+
+eqn={a1==t1,a2==t2,a3==t3,aa==t4};
+
+(*Time span for integration in seconds*)
+tspan=3;
+
+(*Numerical Solution of the equations of motion*)
+s=First[NDSolve[{eqn,init},{th1[t],th'[t],th2[t],th2'[t],th3[t],th3'[t],phi[t],phi'[t]},{t,0,tspan},Method->{"EquationSimplification"->"Residual"}]];
+
+(*Plot the angles in degrees*)
+Plot[{Evaluate[th1[t]/.s]*180/Pi,Evaluate[th2[t]/.s]*180/Pi,Evaluate[th3[t]/.s]*180/Pi,Evaluate[phi[t]/.s]*180/Pi},{t,0,tspan},PlotLabel->"Equations of Motion",PlotRange->All,PlotLegends->{"th1","th2","th3","phi"},AxesLabel->{"Times (s)","Angle (degrees)"}]
+
+(*Plot the angular velocities in degrees/s*)
+Plot[{Evaluate[th1'[t]/.s]*180/Pi,Evaluate[th2'[t]/.s]*180/Pi,Evaluate[th3'[t]/.s]*180/Pi,Evaluate[phi'[t]/.s]*180/Pi},{t,0,tspan},PlotRange->All,PlotLegends->{"th1'","th2'","th3'","phi'"},AxesLabel->{"Times (s)","Velocity (degrees/s)"}]
+
+(*Parametric Plot for showing circumduction*)
+ParametricPlot[Evaluate[{th1[t],phi[t]}*180/Pi/.s],{t,0,tspan},PlotRange->All,PlotLabel->"Parametric PLot",AxesLabel->{"MCP (degrees)","Abduction (degrees)"}]
+
+(*Set the required data points*)
+n1=2000;
+(*Export data to CSV file*)
+data1=Table[Flatten[{t,{Evaluate[{th1[t],th2[t],th3[t],phi[t]}*180/Pi/.s]}}],{t,0,3,3/2000}];
+Export["Results.csv",data1,"CSV"];
+datath1=Table[Flatten[{t,Evaluate[th1[t]/.s]}],{t,0,0.65,0.65/(n1-1)}];
+Export["Th1.csv",datath1];
+datath2=Table[Flatten[{t,Evaluate[th2[t]/.s]}],{t,0,0.6,0.6/(n1-1)}];
+Export["Th2.csv",datath2];
+datath3=Table[Flatten[{t,Evaluate[th3[t]/.s]}],{t,0,0.6,0.6/(n1-1)}];
+Export["Th3_G.csv",datath3];
+(*datath3l=Table[Flatten[{t,Log[Evaluate[th3[t]/.s]]}],{t,0,0.5,0.5/(n1-1)}];
+Export["Th3l.csv",datath3l];*)
+dataphi=Table[Flatten[{t,Evaluate[phi[t]/.s]}],{t,0,0.05,0.05/(n1-1)}];
+Export["phi.csv",dataphi];
+Abduction=Table[Flatten[{t,Evaluate[Iab/.s]}],{t,0,0.05,0.05/(n1-1)}];
+Export["abduction_moment.csv",Abduction];
+Moments={{"Segment","Abduction","MCP","PIP","DIP"},{"Moment of Inertia (kg*m^2)",Iab/.{th1[t]->0,th2[t]->0,th3[t]->0},m1*(R1^2/4+L1^2/3)+(m2+m3)*L1^2,m2*(R2^2/4+L2^2/3)+m3*L2^2,m3*(R3^2/4+L3^2/3)},{"Mass (gr)",(m1+m2+m3)*10^3,m1*10^3,m2*10^3,m3*10^3}};
+Export["flexion_moments.csv",Moments];
+
+Z1[t_]:=Evaluate[L1*Sin[th1[t]]/.s];
+xy1[t_]:=Evaluate[L1*Cos[th1[t]]/.s];
+Z2[t_]:=Evaluate[(L1*Sin[th1[t]]+L2*Sin[th2[t]])/.s];
+xy2[t_]:=Evaluate[L1*Cos[th1[t]]+L2*Cos[th2[t]]/.s];
+Z3[t_]:=Evaluate[(L1*Sin[th1[t]]+L2*Sin[th2[t]]+L3*Sin[th3[t]])/.s];
+xy3[t_]:=Evaluate[L1*Cos[th1[t]]+L2*Cos[th2[t]]+L3*Cos[th3[t]]/.s];
+
+frames = Table[ Graphics[{Gray, Thick,
+Line[{{0, 0}, {xy1[t],Z1[t]}, {xy2[t],Z2[t]},{xy3[t],Z3[t]}}], Darker[Blue],
+Disk[{0, 0}, .01], Darker[Red], Disk[{xy1[t],Z1[t]}, .01],
+Disk[{xy2[t],Z2[t]}, .01],Disk[{xy3[t],Z3[t]}, .01]}, PlotRange -> {{-1.5*(L1+L2+L3), 1.5*(L1+L2+L3)}, {-1.5*(L1+L2+L3), 1.5*(L1+L2+L3)}}], {t, 0, tspan, .01}];
+ListAnimate[frames] 
