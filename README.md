@@ -24,32 +24,32 @@ Let subscript 1,2,3 denote the proximal middle and distal phalanges. Let $$\thet
 
 Then the equation of the spherical coordinates for the system are:
 
-$$ z_1=L_1*sin(\theta_1)/2 $$
+$$ z_1= L_1*sin(\theta_1)/2 $$
 
 $$ xy_1= L_1*cos(\theta_1)/2$$
 
-$$ z_2=L_1*sin(\theta_1) +L_2*sin(\theta_2)/2$$
+$$ z_2= L_1*sin(\theta_1) +L_2*sin(\theta_2)/2$$
 
 $$ xy_2= L_1*cos(\theta_1)+L_2*cos(\theta_2)/2$$
 
-$$ z_3=L_1*sin(\theta_1) +L_2*sin(\theta_2)+L_3*sin(\theta_3)/2 $$
+$$ z_3= L_1*sin(\theta_1) +L_2*sin(\theta_2)+L_3*sin(\theta_3)/2 $$
 
 $$ xy_3= L_1*cos(\theta_1)+L_2*cos(\theta_2)+L_3*cos(\theta_3)/2$$
 
 
-$$ x_1=xy_1*cos(\phi) $$
+$$ x_1= xy_1*cos(\phi) $$
 
-$$ y_1=xy_1*sin(\phi) $$
-
-
-$$ x_2=xy_2*cos(\phi) $$
-
-$$ y_2=xy_2*sin(\phi) $$
+$$ y_1= xy_1*sin(\phi) $$
 
 
-$$ x_3=xy_3*cos(\phi) $$
+$$ x_2= xy_2*cos(\phi) $$
 
-$$ y_3=xy_3*sin(\phi) $$
+$$ y_2= xy_2*sin(\phi) $$
+
+
+$$ x_3= xy_3*cos(\phi) $$
+
+$$ y_3= xy_3*sin(\phi) $$
 
 Then the Kinetic energy of the system is:
 
