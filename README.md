@@ -48,6 +48,7 @@ $$ x_3=xy_3*cos(\phi) $$
 $$ y_3=xy_3*sin(\phi) $$
 
 Then the Kinetic energy of the system is:
+
 $$ $$
 
 $$ K= 1/2 \sum m_i *[(\dot z_i)^2+ (\dot x_i)^2 + (\dot y_i)^2] +1/2 I_{com,i} *[ (\dot \theta_i)^2 +(\dot \phi)^2 cos(\theta_i)^2]$$
