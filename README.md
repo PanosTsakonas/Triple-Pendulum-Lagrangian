@@ -53,4 +53,8 @@ $$ K= 1/2 \sum m_i *[(\dot z_i)^2+ (\dot x_i)^2 + (\dot y_i)^2] +1/2 I_{com,i} *
 
 The potential energy of the system is
 
-$V= \sum m_i *g*z_i +1/2 K_i (\theta_i -\theta_{eq,i})^2$$
+$$V= \sum m_i *g*z_i +1/2 K_i (\theta_i -\theta_{eq,i})^2$$
+
+where $K_i, \theta_{eq,i}$ correspond to the spring constant of the passive moment generated at each joint and the equilibrium angle where the total spring efect is 0.
+
+
