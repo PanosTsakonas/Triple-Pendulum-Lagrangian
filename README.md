@@ -80,7 +80,7 @@ $$ $$
 
 $$ L = K-V$$
 
-$$ L= ![image](https://user-images.githubusercontent.com/64256997/180436825-f35ad195-666d-449d-ba5b-3a4a874686d5.png)$$
+$$ L= $$ ![image](https://user-images.githubusercontent.com/64256997/180436825-f35ad195-666d-449d-ba5b-3a4a874686d5.png)
 
 
 $$ $$
