@@ -18,7 +18,7 @@ The center of mass for each cylinder is located at L/2 away from the rotating jo
 
 Let subscript 1,2,3 denote the proximal middle and distal phalanges. 
 
-z1=L1*sin(\theta_1)
+$$ z1=L1*sin(\theta_1) $$
 
 
 
