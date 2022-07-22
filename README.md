@@ -14,7 +14,7 @@ The moment of inertial of a cylinder about its center of mass is $$I_{com}= m* (
 
 The mass of a cylinder is calculated from the density formula as
 
-$$ m= \pi R^2 L \rho $$
+$$ m=\rho \pi R^2 L  $$
 
 The center of mass for each cylinder is located at $L/2$ away from the rotating joint
 
