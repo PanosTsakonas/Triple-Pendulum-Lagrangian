@@ -10,9 +10,9 @@ all the angles are 0 and not 90 degrees.
 
 The digits are assumed to be rigid cylinders with constant desnity of $$\rho=1.1 g/cm^3$$.
 
-The moment of inertial of a cylinder about its center of mass is $$I_{com}= R^2/4 + L^2/12$$, where R and L are the radius and length of the cylinder respectively.
+The moment of inertial of a cylinder about its center of mass is $$I_{com}= R^2/4 + L^2/12$$ where R and L are the radius and length of the cylinder respectively.
 
-The center of mass for each cylinder is located at L/2 away from the rotating joint
+The center of mass for each cylinder is located at $L/2$ away from the rotating joint
 
 # Deriving the equations
 
@@ -45,3 +45,7 @@ $$ y3=xy3*sin(\phi) $$
 Then the Kinetic energy of the system is:
 
 $$ K= 1/2 \sum m_i *[(\dot z_i)^2+ (\dot x_i)^2 + (\dot y_i)^2] +1/2 I_{com,i} *[ (\dot \theta_i)^2 +(\dot \phi)^2 cos(\theta_i)^2]$$
+
+The potential energy of the system is
+
+$V= \sum m_i *g*z_i +1/2 K_i (\theta_i -\theta_{eq,i})^2$$
