@@ -8,9 +8,13 @@ you are looking.
 To solve the system the elevation angle in this code is the complementary angle of the normal definition of the elevation angle. This is chosen so that when the digits are in full extension then 
 all the angles are 0 and not 90 degrees.
 
-The digits are assumed to be rigid cylinders with constant desnity of $$\rho=1.1 g/cm^3$$.
+The digits are assumed to be rigid cylinders with constant desnity of $\rho=1.1 g/cm^3$ 
 
-The moment of inertial of a cylinder about its center of mass is $$I_{com}= R^2/4 + L^2/12$$ where R and L are the radius and length of the cylinder respectively.
+The moment of inertial of a cylinder about its center of mass is $$I_{com}= m* (R^2/4 + L^2/12)$$ where R and L are the radius and length of the cylinder respectively.
+
+The mass of a cylinder is calculated from the density formula as
+
+$$ m= \pi R^2 L \rho $$
 
 The center of mass for each cylinder is located at $L/2$ away from the rotating joint
 
