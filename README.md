@@ -73,7 +73,7 @@ Now that both the Kinetic and Potential energies are determined the Lagrangian e
 
 $$ $$ 
 
-$$ \script L = K-V$$
+$$ L = K-V$$
 
 $$ $$
 
@@ -95,7 +95,7 @@ The equations of motion for each generalised coordinate are obtained from the fo
 
 $$ $$
 
-$$ \dot (\partial \script L /\partial \dot q_i) -\partial \script L / \partial q_i +\partial R / \partial \dot q_i = Q_i $$
+$$ \dot (\partial L /\partial \dot q_i) -\partial  L / \partial q_i +\partial R / \partial \dot q_i = Q_i $$
 
 $$ $$
 
