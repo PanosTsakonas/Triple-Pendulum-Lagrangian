@@ -48,17 +48,54 @@ $$ x_3=xy_3*cos(\phi) $$
 $$ y_3=xy_3*sin(\phi) $$
 
 Then the Kinetic energy of the system is:
-
+$$ $$
 
 $$ K= 1/2 \sum m_i *[(\dot z_i)^2+ (\dot x_i)^2 + (\dot y_i)^2] +1/2 I_{com,i} *[ (\dot \theta_i)^2 +(\dot \phi)^2 cos(\theta_i)^2]$$
 
+$$ $$
+
+The first part of the kinetic energy corresponds to the parallel axis theorem that will shift the moment of inertia from the midpoint towards the rotating joint.
 
 The potential energy of the system is
 
+$$ $$
 
 $$V= \sum m_i *g*z_i +1/2 K_i (\theta_i -\theta_{eq,i})^2$$
 
+$$ $$
 
 where $K_i, \theta_{eq,i}$ correspond to the spring constant of the passive moment generated at each joint and the equilibrium angle where the total spring efect is 0.
 
+
+# Lagrangian equation
+
+Now that both the Kinetic and Potential energies are determined the Lagrangian equation is:
+
+$$ $$ 
+
+$$ \scriptL = K-V$$
+
+$$ $$
+
+# Rayleigh dissipation function
+
+The damper effect of the passive moment is introduced into the Lagrangian as a Rayleigh dissipation function
+
+$$ $$ 
+
+$$ R=1/2 \sum b_i \dit \theta_i ^2 $$
+
+$$ $$
+
+where $b_i$ is the torsional damper constant.
+
+# Euler-Lagrange equations
+
+The equations of motion for each generalised coordinate are obtained from the following equation
+
+$$ $$
+
+$$ \dot (\partial \scriptL /\partial \dot q_i) -\partial \scriptL / \partial q_i +\partial R / \partial \dot q_i = Q_i $$
+
+$$ $$
 
