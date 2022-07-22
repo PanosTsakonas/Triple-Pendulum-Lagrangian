@@ -83,7 +83,7 @@ The damper effect of the passive moment is introduced into the Lagrangian as a R
 
 $$ $$ 
 
-$$ R=1/2 \sum b_i \dit \theta_i ^2 $$
+$$ R=1/2 \sum b_i \dot \theta_i ^2 $$
 
 $$ $$
 
@@ -95,7 +95,7 @@ The equations of motion for each generalised coordinate are obtained from the fo
 
 $$ $$
 
-$$ \dot (\partial L /\partial \dot q_i) -\partial  L / \partial q_i +\partial R / \partial \dot q_i = Q_i $$
+$$ d/dt [(\partial L /\partial \dot q_i)] -\partial  L / \partial q_i +\partial R / \partial \dot q_i = Q_i $$
 
 $$ $$
 
