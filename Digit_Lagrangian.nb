@@ -53,8 +53,8 @@ MatrixForm[K0];
 
 
 (*Body Interactions*)
-a=th1'[t]*th2'[t]*Cos[th1[t]-th2[t]]+phi'[t]^2*Cos[th1[t]]*Cos[th2[t]];
-b=th1'[t]*th3'[t]*Cos[th1[t]-th3[t]]+phi'[t]^2*Cos[th1[t]]*Cos[th3[t]];
+a=-th1'[t]*th2'[t]*Cos[th1[t]+th2[t]]+phi'[t]^2*Cos[th1[t]]*Cos[th2[t]];
+b=-th1'[t]*th3'[t]*Cos[th1[t]+th3[t]]+phi'[t]^2*Cos[th1[t]]*Cos[th3[t]];
 c=th3'[t]*th2'[t]*Cos[th2[t]-th3[t]]+phi'[t]^2*Cos[th3[t]]*Cos[th2[t]];
 c1=(m2/2+m3)*L1*L2;
 c2=m3*L1*L3/2;
