@@ -82,8 +82,9 @@ $$ L = K-V$$
 
 $$ $$
 
+![Lagrangian](https://user-images.githubusercontent.com/64256997/181041319-7f4d4d78-5f3e-47d8-a2d2-97eff108c485.jpg)
 
-![Lagrangian](https://user-images.githubusercontent.com/64256997/180438839-489a122b-0ba3-4c30-a49a-65968d1ac796.jpg)
+
 
 
 
