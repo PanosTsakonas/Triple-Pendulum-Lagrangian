@@ -107,7 +107,7 @@ Plot[{Evaluate[th1[t]/.s]*180/Pi,Evaluate[th2[t]/.s]*180/Pi,Evaluate[th3[t]/.s]*
 Plot[{Evaluate[th1'[t]/.s]*180/Pi,Evaluate[th2'[t]/.s]*180/Pi,Evaluate[th3'[t]/.s]*180/Pi,Evaluate[phi'[t]/.s]*180/Pi},{t,0,tspan},PlotRange->All,PlotLegends->{"th1'","th2'","th3'","phi'"},AxesLabel->{"Times (s)","Velocity (degrees/s)"}]
 
 (*Parametric Plot for showing circumduction*)
-ParametricPlot[Evaluate[{th1[t],phi[t]}*180/Pi/.s],{t,0,tspan},PlotRange->All,PlotLabel->"Parametric PLot",AxesLabel->{"MCP (degrees)","Abduction (degrees)"}]
+ParametricPlot[Evaluate[{th1[t],phi[t]}*180/Pi/.s],{t,0,tspan},PlotRange->All,AspectRatio->Full,PlotLabel->"Parametric PLot",AxesLabel->{"MCP (degrees)","Abduction (degrees)"}]
 
 (*Set the required data points*)
 n1=2000;
