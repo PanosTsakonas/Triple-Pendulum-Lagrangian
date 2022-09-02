@@ -14,14 +14,14 @@ m3=Pi*R3^2*L3*rho; (*Mass of the third bone in Kg*)
 (*Torsional spring and damper constants
 In the future perhaps a function that scales these parameters with 
 anthropometric data can be implemented*)
-K1=0.03963;
-K2=0.0086;
-K3=0.0019398;
-K4=0.0121;
-b1=0.0011936;
-b2=3.44*10^-4;
-b3=6.18*10^-5;
-b4=1.3*10^-3;
+K1=0.03963; (*Nm/rad*)
+K2=0.0086; (*Nm/rad*)
+K3=0.0019398; (*Nm/rad*)
+K4=0.0121; (*Nm/rad*)
+b1=0.0011936; (*Nms/rad*)
+b2=3.44*10^-4; (*Nms/rad*)
+b3=6.18*10^-5; (*Nms/rad*)
+b4=1.3*10^-3; (*Nms/rad*)
 
 (*Graviational Acceleration in m/s^2*)
 g=9.81;
@@ -32,23 +32,23 @@ th2eq=45*Pi/180;
 th3eq=11*Pi/180;
 phieq=15*Pi/180;
 
-(*Initial Conditions*)
+(*Initial Conditions in degrees*)
 init={th1[0]==60*Pi/180,th1'[0]==0,th2[0]==45*Pi/180,th2'[0]==0,th3[0]==11*Pi/180,th3'[0]==0,phi[0]==15*Pi/180,phi'[0]==0};
 
 
 (*Moment of inertia matirx as calculated on my 1st year progress report*)
-M1={{m1*(R1^2/8+L1^2/6),0,0},{(m2*L1^2)/2,m2*(R2^2/8+L2^2/6),0},{(m3*L1^2)/2,(m3*L2^2)/2,m3*(R3^2/8+L3^2/6)}};
+M1={{m1*(R1^2/4+L1^2/3),0,0},{(m2*L1^2),m2*(R2^2/4+L2^2/3),0},{(m3*L1^2),(m3*L2^2),m3*(R3^2/4+L3^2/3)}};
 MatrixForm[M1];
 
 (*Moment of inertia of the abduction movement*)
 
-Iab=2*{1,1,1} . M1 . {Cos[th1[t]^2],Cos[th2[t]]^2,Cos[th3[t]]^2}+{L1*L2*(m2+2*m3),L1*L3*m3,L2*L3*m3} . {Cos[th1[t]]*Cos[th2[t]],Cos[th1[t]]*Cos[th3[t]],Cos[th2[t]]*Cos[th3[t]]};
+Iab={1,1,1} . M1 . {Cos[th1[t]^2],Cos[th2[t]]^2,Cos[th3[t]]^2}+{L1*L2*(m2+2*m3),L1*L3*m3,L2*L3*m3} . {Cos[th1[t]]*Cos[th2[t]],Cos[th1[t]]*Cos[th3[t]],Cos[th2[t]]*Cos[th3[t]]};
 
 
 (*Angular Velocities*)
 An={th1'[t]^2+phi'[t]^2*Cos[th1[t]]^2,th2'[t]^2+phi'[t]^2*Cos[th2[t]]^2,th3'[t]^2+phi'[t]^2*Cos[th3[t]]^2};
 MatrixForm[An];
-K0={1,1,1} . M1 . An;
+K0={1/2,1/2,1/2} . M1 . An;
 MatrixForm[K0];
 
 
