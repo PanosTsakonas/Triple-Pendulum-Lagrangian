@@ -127,12 +127,12 @@ Export["abduction_moment.csv",Abduction];
 Moments={{"Segment","Abduction","MCP","PIP","DIP"},{"Moment of Inertia (kg*m^2)",Iab/.{th1[t]->0,th2[t]->0,th3[t]->0},m1*(R1^2/4+L1^2/3)+(m2+m3)*L1^2,m2*(R2^2/4+L2^2/3)+m3*L2^2,m3*(R3^2/4+L3^2/3)},{"Mass (gr)",(m1+m2+m3)*10^3,m1*10^3,m2*10^3,m3*10^3}};
 Export["flexion_moments.csv",Moments];
 
-Z1[t_]:=Evaluate[L1*Sin[th1[t]]/.s];
+Z1[t_]:=Evaluate[-L1*Sin[th1[t]]/.s];
 xy1[t_]:=Evaluate[L1*Cos[th1[t]]/.s];
-Z2[t_]:=Evaluate[(L1*Sin[th1[t]]+L2*Sin[th2[t]])/.s];
-xy2[t_]:=Evaluate[L1*Cos[th1[t]]+L2*Cos[th2[t]]/.s];
-Z3[t_]:=Evaluate[(L1*Sin[th1[t]]+L2*Sin[th2[t]]+L3*Sin[th3[t]])/.s];
-xy3[t_]:=Evaluate[L1*Cos[th1[t]]+L2*Cos[th2[t]]+L3*Cos[th3[t]]/.s];
+Z2[t_]:=Evaluate[-(L1*Sin[th1[t]]+L2*Sin[(th1[t]+th2[t])])/.s];
+xy2[t_]:=Evaluate[L1*Cos[th1[t]]+L2*Cos[(th1[t]+th2[t])]/.s];
+Z3[t_]:=Evaluate[-(L1*Sin[th1[t]]+L2*Sin[(th1[t]+th2[t])]+L3*Sin[(th1[t]+th2[t]+th3[t])])/.s];
+xy3[t_]:=Evaluate[L1*Cos[th1[t]]+L2*Cos[(th1[t]+th2[t])]+L3*Cos[(th1[t]+th2[t]+th3[t])]/.s];
 
 frames = Table[ Graphics[{Gray, Thick,
 Line[{{0, 0}, {xy1[t],Z1[t]}, {xy2[t],Z2[t]},{xy3[t],Z3[t]}}], Darker[Blue],
