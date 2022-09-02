@@ -11,17 +11,15 @@ m1=Pi*R1^2*L1*rho; (*Mass of the first bone in Kg*)
 m2=Pi*R2^2*L2*rho; (*Mass of the second bone in Kg*)
 m3=Pi*R3^2*L3*rho; (*Mass of the third bone in Kg*)
 
-(*Torsional spring and damper constants
-In the future perhaps a function that scales these parameters with 
-anthropometric data can be implemented*)
+(*Torsional spring and damper constants*)
 K1=0.03963; (*Nm/rad*)
 K2=0.0086; (*Nm/rad*)
 K3=0.0019398; (*Nm/rad*)
-K4=0.0121; (*Nm/rad*)
+Ka=0.0121; (*Nm/rad*)
 b1=0.0011936; (*Nms/rad*)
 b2=3.44*10^-4; (*Nms/rad*)
 b3=6.18*10^-5; (*Nms/rad*)
-b4=1.3*10^-3; (*Nms/rad*)
+ba=1.3*10^-3; (*Nms/rad*)
 
 (*Graviational Acceleration in m/s^2*)
 g=9.81;
@@ -66,7 +64,7 @@ Ka1=a*c1+b*c2+c*c3;
 Ktotal=K0+Ka1;
 
 (*Torsional Spring Potential Energy*)
-Vspr=K1/2*(th1[t]-th1eq)^2+K2/2*(th2[t]-th2eq)^2+K3/2*(th3[t]-th3eq)^2+K4/2*(phi[t]-phieq)^2;
+Vspr=K1/2*(th1[t]-th1eq)^2+K2/2*(th2[t]-th2eq)^2+K3/2*(th3[t]-th3eq)^2+Ka/2*(phi[t]-phieq)^2;
 
 (*Graviational Potential Energy*)
 Vgrav=-(m1*g*L1*Sin[th1[t]]/2+m2*g*(L1*Sin[th1[t]]+L2*Sin[th2[t]]/2)+m3*g*(L1*Sin[th1[t]]+L2*Sin[th2[t]]+L3*Sin[th3[t]]/2));
@@ -82,7 +80,7 @@ L=Ktotal-Vtotal;
 a1=D[D[L,th1'[t]],t]-D[L,th1[t]]+b1*th1'[t];
 a2=D[D[L,th2'[t]],t]-D[L,th2[t]]+b2*th2'[t];
 a3=D[D[L,th3'[t]],t]-D[L,th3[t]]+b3*th3'[t];
-aa=D[D[L,phi'[t]],t]-D[L,phi[t]]+b4*phi'[t];
+aa=D[D[L,phi'[t]],t]-D[L,phi[t]]+ba*phi'[t];
 
 
 (* Input Torques *)
@@ -97,7 +95,7 @@ t4=5*K4*Pi/180*Cos[4*Pi*t];
 eqn={a1==t1,a2==t2,a3==t3,aa==t4};
 
 (*Time span for integration in seconds*)
-tspan=3;
+tspan=0.8;
 
 (*Numerical Solution of the equations of motion*)
 s=First[NDSolve[{eqn,init},{th1[t],th'[t],th2[t],th2'[t],th3[t],th3'[t],phi[t],phi'[t]},{t,0,tspan},Method->{"EquationSimplification"->"Residual"}]];
@@ -114,19 +112,17 @@ ParametricPlot[Evaluate[{th1[t],phi[t]}*180/Pi/.s],{t,0,tspan},PlotRange->All,Pl
 (*Set the required data points*)
 n1=2000;
 (*Export data to CSV file*)
-data1=Table[Flatten[{t,{Evaluate[{th1[t],th2[t],th3[t],phi[t]}*180/Pi/.s]}}],{t,0,3,3/2000}];
+data1=Table[Flatten[{t,{Evaluate[{th1[t],th2[t],th3[t],phi[t]}*180/Pi/.s]}}],{t,0,tspan,tspan/2000}];
 Export["Results.csv",data1,"CSV"];
-datath1=Table[Flatten[{t,Evaluate[th1[t]/.s]}],{t,0,0.65,0.65/(n1-1)}];
+datath1=Table[Flatten[{t,Evaluate[th1[t]/.s]}],{t,0,tspan,tspan/(n1-1)}];
 Export["Th1.csv",datath1];
-datath2=Table[Flatten[{t,Evaluate[th2[t]/.s]}],{t,0,0.6,0.6/(n1-1)}];
+datath2=Table[Flatten[{t,Evaluate[th2[t]/.s]}],{t,0,tspan,tspan/(n1-1)}];
 Export["Th2.csv",datath2];
-datath3=Table[Flatten[{t,Evaluate[th3[t]/.s]}],{t,0,0.6,0.6/(n1-1)}];
-Export["Th3_G.csv",datath3];
-(*datath3l=Table[Flatten[{t,Log[Evaluate[th3[t]/.s]]}],{t,0,0.5,0.5/(n1-1)}];
-Export["Th3l.csv",datath3l];*)
-dataphi=Table[Flatten[{t,Evaluate[phi[t]/.s]}],{t,0,0.05,0.05/(n1-1)}];
+datath3=Table[Flatten[{t,Evaluate[th3[t]/.s]}],{t,0,tspan,tspan/(n1-1)}];
+Export["Th3.csv",datath3];
+dataphi=Table[Flatten[{t,Evaluate[phi[t]/.s]}],{t,0,tspan,tspan/(n1-1)}];
 Export["phi.csv",dataphi];
-Abduction=Table[Flatten[{t,Evaluate[Iab/.s]}],{t,0,0.05,0.05/(n1-1)}];
+Abduction=Table[Flatten[{t,Evaluate[Iab/.s]}],{t,0,tspan,tspan/(n1-1)}];
 Export["abduction_moment.csv",Abduction];
 Moments={{"Segment","Abduction","MCP","PIP","DIP"},{"Moment of Inertia (kg*m^2)",Iab/.{th1[t]->0,th2[t]->0,th3[t]->0},m1*(R1^2/4+L1^2/3)+(m2+m3)*L1^2,m2*(R2^2/4+L2^2/3)+m3*L2^2,m3*(R3^2/4+L3^2/3)},{"Mass (gr)",(m1+m2+m3)*10^3,m1*10^3,m2*10^3,m3*10^3}};
 Export["flexion_moments.csv",Moments];
