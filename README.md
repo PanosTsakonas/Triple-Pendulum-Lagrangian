@@ -96,7 +96,7 @@ The damper effect of the passive moment is introduced into the Lagrangian as a R
 
 $$ $$ 
 
-$$ R=1/2 \sum b_i \dot \theta_i ^2 $$
+$$ R=1/2 \sum_{i} [b_i \dot \theta_i ^2] +1/2 b_a \dot \phi^2 $$
 
 $$ $$
 
