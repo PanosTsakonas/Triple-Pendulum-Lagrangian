@@ -65,7 +65,7 @@ The potential energy of the system is
 
 $$ $$
 
-$$V= \sum [m_i *g*z_i +1/2 K_i (\theta_i -\theta_{eq,i})^2]$$
+$$V= \sum [m_i *g*z_i +1/2 K_i (\theta_i -\theta_{eq,i})^2] +1/2 K_a (\phi-\phi_eq})$$
 
 $$ $$
 
