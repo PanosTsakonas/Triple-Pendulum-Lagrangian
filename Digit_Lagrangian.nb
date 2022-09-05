@@ -125,7 +125,8 @@ Export["phi.csv",dataphi];
 Abduction=Table[Flatten[{t,Evaluate[Iab/.s]}],{t,0,tspan,tspan/(n1-1)}];
 Export["abduction_moment.csv",Abduction];
 Moments={{"Segment","Abduction","MCP","PIP","DIP"},{"Moment of Inertia (kg*m^2)",Iab/.{th1[t]->0,th2[t]->0,th3[t]->0},m1*(R1^2/4+L1^2/3)+(m2+m3)*L1^2,m2*(R2^2/4+L2^2/3)+m3*L2^2,m3*(R3^2/4+L3^2/3)},{"Mass (gr)",(m1+m2+m3)*10^3,m1*10^3,m2*10^3,m3*10^3}};
-Export["flexion_moments.csv",Moments];
+Export["mass_and_flexion_moments.csv",Moments];
+
 
 Z1[t_]:=Evaluate[-L1*Sin[th1[t]]/.s];
 xy1[t_]:=Evaluate[L1*Cos[th1[t]]/.s];
