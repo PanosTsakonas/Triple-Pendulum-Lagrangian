@@ -113,15 +113,15 @@ ParametricPlot[Evaluate[{th1[t],phi[t]}*180/Pi/.s],{t,0,tspan},PlotRange->All,As
 n1=2000;
 (*Export data to CSV file*)
 data1=Table[Flatten[{t,{Evaluate[{th1[t],th2[t],th3[t],phi[t]}*180/Pi/.s]}}],{t,0,tspan,tspan/2000}];
-Export["Results.csv",data1,"CSV"];
+Export["Results.xlsx",data1,"XLSX"];
 datath1=Table[Flatten[{t,Evaluate[th1[t]/.s]}],{t,0,tspan,tspan/(n1-1)}];
-Export["Th1.csv",datath1];
+Export["Th1.xlsx",datath1,"XLSX"];
 datath2=Table[Flatten[{t,Evaluate[th2[t]/.s]}],{t,0,tspan,tspan/(n1-1)}];
-Export["Th2.csv",datath2];
+Export["Th2.xlsx",datath2,"XLSX"];
 datath3=Table[Flatten[{t,Evaluate[th3[t]/.s]}],{t,0,tspan,tspan/(n1-1)}];
-Export["Th3.csv",datath3];
+Export["Th3.xlsx",datath3,"XLSX"];
 dataphi=Table[Flatten[{t,Evaluate[phi[t]/.s]}],{t,0,tspan,tspan/(n1-1)}];
-Export["phi.csv",dataphi];
+Export["phi.xlsx",dataphi,"XLSX"];
 Abduction=Table[Flatten[{t,Evaluate[Iab/.s]}],{t,0,tspan,tspan/(n1-1)}];
 Export["abduction_moment.csv",Abduction];
 Moments={{"Segment","Abduction","MCP","PIP","DIP"},{"Moment of Inertia (kg*m^2)",Iab/.{th1[t]->0,th2[t]->0,th3[t]->0},m1*(R1^2/4+L1^2/3)+(m2+m3)*L1^2,m2*(R2^2/4+L2^2/3)+m3*L2^2,m3*(R3^2/4+L3^2/3)},{"Mass (gr)",(m1+m2+m3)*10^3,m1*10^3,m2*10^3,m3*10^3}};
