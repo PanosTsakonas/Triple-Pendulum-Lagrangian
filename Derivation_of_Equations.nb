@@ -1,8 +1,8 @@
-xy1[t]=L1/2*Cos[th1[t]];
+xy1[t]=-L1/2*Cos[th1[t]];
 z1[t]=-L1/2*Sin[th1[t]];
-xy2[t]=L1*Cos[th1[t]]+L2/2*Cos[th2[t]];
+xy2[t]=-(L1*Cos[th1[t]]+L2/2*Cos[th2[t]]);
 z2[t]=-(L1*Sin[th1[t]]+L2/2*Sin[th2[t]]);
-xy3[t]=L1*Cos[th1[t]]+L2*Cos[th2[t]]+L3/2*Cos[th3[t]];
+xy3[t]=-(L1*Cos[th1[t]]+L2*Cos[th2[t]]+L3/2*Cos[th3[t]]);
 z3[t]=-(L1*Sin[th1[t]]+L2*Sin[th2[t]]+L3/2*Sin[th3[t]]);
 
 x1[t]=xy1[t]*Cos[phi[t]];
