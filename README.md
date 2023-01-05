@@ -26,15 +26,15 @@ Then the equation of the spherical coordinates for the system are:
 
 $$ z_1= -L_1*sin(\theta_1)/2 $$
 
-$$ xy_1= L_1*cos(\theta_1)/2$$
+$$ xy_1= -L_1*cos(\theta_1)/2$$
 
 $$ z_2= -(L_1*sin(\theta_1) +L_2*sin(\theta_2)/2)$$
 
-$$ xy_2= L_1*cos(\theta_1)+L_2*cos(\theta_2)/2$$
+$$ xy_2= -(L_1*cos(\theta_1)+L_2*cos(\theta_2)/2)$$
 
 $$ z_3= -(L_1*sin(\theta_1) +L_2*sin(\theta_2)+L_3*sin(\theta_3)/2) $$
 
-$$ xy_3= L_1*cos(\theta_1)+L_2*cos(\theta_2)+L_3*cos(\theta_3)/2$$
+$$ xy_3= -(L_1*cos(\theta_1)+L_2*cos(\theta_2)+L_3*cos(\theta_3)/2)$$
 
 
 $$ x_1= xy_1*cos(\phi) $$
